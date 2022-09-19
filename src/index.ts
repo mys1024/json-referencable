@@ -23,23 +23,23 @@ export function referencify(
   data: object | unknown[],
   prefix = '_ref_',
 ): Referencified {
-  const map: Map<object | unknown[], string> = new Map()
+  const memo: Map<object | unknown[], string> = new Map()
   let acc = 0
 
   const ref = (d: object | unknown[]) => {
     let id = `${prefix}${acc++}`
-    map.set(d, id)
+    memo.set(d, id)
     return id
   }
 
   const dfs = (d: object | unknown[]) => {
     if (!isArrOrObj(d))
-      throw new Error('type error')
+      throw new Error('not an array or object')
     for (const key in d) {
       const val = d[key]
       if (!isArrOrObj(val))
         continue
-      let id = map.get(val)
+      let id = memo.get(val)
       if (id === undefined) {
         id = ref(val)
         dfs(val)
@@ -52,7 +52,7 @@ export function referencify(
   dfs(data)
 
   const refs: Record<string, object | unknown[]> = {}
-  for (const [val, key] of map.entries()) {
+  for (const [val, key] of memo.entries()) {
     refs[key] = val
   }
 

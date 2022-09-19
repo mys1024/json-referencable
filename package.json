@@ -1,7 +1,7 @@
 {
   "name": "json-referencable",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "packageManager": "pnpm@7.9.5",
   "description": "Keep references in JSON.",
   "author": "mys1024",
@@ -18,8 +18,10 @@
     "JSON",
     "object",
     "array",
+    "ref",
     "reference",
-    "referencable"
+    "referencable",
+    "referencify"
   ],
   "exports": {
     ".": {
@@ -34,8 +36,7 @@
   ],
   "scripts": {
     "build": "unbuild",
-    "test": "vitest run",
-    "test:dev": "vitest",
+    "test": "vitest",
     "test:cover": "vitest --coverage",
     "release": "pnpm test && pnpm build && pnpm publish"
   },
