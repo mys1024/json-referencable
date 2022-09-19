@@ -1,0 +1,36 @@
+// Vitest Snapshot v1
+
+exports[`referencify > test1 1`] = `
+{
+  "refs": {
+    "_ref_0": {
+      "students": "_ref_1",
+    },
+    "_ref_1": [
+      "_ref_2",
+      "_ref_4",
+    ],
+    "_ref_2": {
+      "class": "_ref_0",
+      "friends": "_ref_3",
+      "id": 1,
+      "name": "A",
+    },
+    "_ref_3": [
+      "_ref_4",
+    ],
+    "_ref_4": {
+      "class": "_ref_0",
+      "friends": "_ref_5",
+      "id": 2,
+      "name": "B",
+    },
+    "_ref_5": [
+      "_ref_2",
+    ],
+  },
+  "root": "_ref_0",
+}
+`;
+
+exports[`stringify  > test1 1`] = `"{\\"refs\\":{\\"_ref_0\\":{\\"students\\":\\"_ref_1\\"},\\"_ref_1\\":[\\"_ref_2\\",\\"_ref_4\\"],\\"_ref_2\\":{\\"name\\":\\"A\\",\\"id\\":1,\\"class\\":\\"_ref_0\\",\\"friends\\":\\"_ref_3\\"},\\"_ref_3\\":[\\"_ref_4\\"],\\"_ref_4\\":{\\"name\\":\\"B\\",\\"id\\":2,\\"class\\":\\"_ref_0\\",\\"friends\\":\\"_ref_5\\"},\\"_ref_5\\":[\\"_ref_2\\"]},\\"root\\":\\"_ref_0\\"}"`;
