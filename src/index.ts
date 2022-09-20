@@ -1,28 +1,21 @@
-interface Referencified {
-  refs: Record<string, object | unknown[]>
-  root: string
-}
-
-function isArray(val: unknown): val is unknown[] {
-  return Array.isArray(val)
-}
-
-function isObject(val: unknown): val is object {
-  return typeof val === 'object'
-}
-
-function isArrOrObj(val: unknown): val is object | unknown[] {
-  return isArray(val) || isObject(val)
-}
-
-function isReferencified(val: any): val is Referencified {
-  return isObject(val?.refs) && typeof val?.root === 'string'
-}
+import type { Referencified } from './types'
+import { isArrOrObj, isReferencified, deepClone } from './utils'
 
 export function referencify(
   data: object | unknown[],
-  prefix = '_ref_',
+  options: {
+    prefix?: string,
+    clone?: boolean,
+  } = {
+    prefix: '_ref_',
+    clone: true,
+  },
 ): Referencified {
+  const { prefix, clone } = options
+
+  if (clone)
+    data = deepClone(data)
+
   const memo: Map<object | unknown[], string> = new Map()
   let acc = 0
 
@@ -61,10 +54,18 @@ export function referencify(
 
 export function stringify(
   data: object | unknown[],
-  replacer?: (this: any, key: string, value: any) => any,
-  space?: string | number,
+  options: {
+    prefix?: string,
+    clone?: boolean,
+    replacer?: (this: any, key: string, value: any) => any,
+    space?: string | number,
+  } = {
+    prefix: '_ref_',
+    clone: true,
+  },
 ): string {
-  return JSON.stringify(referencify(data), replacer, space)
+  const { prefix, clone, replacer, space } = options
+  return JSON.stringify(referencify(data, { prefix, clone }), replacer, space)
 }
 
 export function parse<T extends object | unknown[]>(
