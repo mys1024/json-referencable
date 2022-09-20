@@ -1,7 +1,7 @@
 {
   "name": "json-referencable",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "packageManager": "pnpm@7.9.5",
   "description": "Keep references in JSON.",
   "author": "mys1024",
@@ -38,7 +38,7 @@
     "build": "unbuild",
     "test": "vitest",
     "test:cover": "vitest --coverage",
-    "release": "pnpm test && pnpm build && pnpm publish"
+    "release": "pnpm test run && pnpm build && pnpm publish"
   },
   "devDependencies": {
     "@vitest/coverage-c8": "^0.22.1",
