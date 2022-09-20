@@ -1,17 +1,16 @@
 import type { Referencified } from './types'
 import { isArrOrObj, isReferencified, deepClone } from './utils'
 
+const DEFAULT_PREFIX = '_ref_'
+
 export function referencify(
   data: object | unknown[],
   options: {
     prefix?: string,
     clone?: boolean,
-  } = {
-    prefix: '_ref_',
-    clone: true,
-  },
+  } = {},
 ): Referencified {
-  const { prefix, clone } = options
+  const { prefix = DEFAULT_PREFIX, clone = true } = options
 
   if (clone)
     data = deepClone(data)
@@ -59,19 +58,20 @@ export function stringify(
     clone?: boolean,
     replacer?: (this: any, key: string, value: any) => any,
     space?: string | number,
-  } = {
-    prefix: '_ref_',
-    clone: true,
-  },
+  } = {},
 ): string {
-  const { prefix, clone, replacer, space } = options
+  const { prefix = DEFAULT_PREFIX, clone = true, replacer, space } = options
   return JSON.stringify(referencify(data, { prefix, clone }), replacer, space)
 }
 
 export function parse<T extends object | unknown[]>(
   json: string,
-  prefix = '_ref_',
+  options: {
+    prefix?: string,
+  } = {},
 ): T {
+  const { prefix = DEFAULT_PREFIX } = options
+
   const referencified = JSON.parse(json)
   if (!isReferencified(referencified))
     throw new Error('not a referencable JSON string')
