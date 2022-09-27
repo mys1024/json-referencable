@@ -41,8 +41,8 @@
     "release": "pnpm test run && pnpm build && pnpm publish"
   },
   "devDependencies": {
-    "@vitest/coverage-c8": "^0.22.1",
-    "unbuild": "^0.8.9",
-    "vitest": "^0.22.1"
+    "@vitest/coverage-c8": "^0.23.4",
+    "unbuild": "^0.8.11",
+    "vitest": "^0.23.4"
   }
 }
